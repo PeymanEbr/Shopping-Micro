@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Catalog.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,14 @@ namespace Catalog.Core.Repositories
 {
     public interface IProductRepository
     {
+        Task<IEnumerable<Product>> GetProducts();
+        Task<Product> GetProductById(string id);
+        Task<IEnumerable<Product>> GetProductsByName (string name);
+        Task<IEnumerable<Product>> GetProductsByType (string type);
+        Task<IEnumerable<Product>> GetProductsByTypeId(string typeId);
+        Task<IEnumerable<Product>> GetProductsByBrand(string brand);
+        Task<IEnumerable<Product>> GetProductsByBrandId(string brandId);
+        Task<bool> UpdateProduct(Product product);
+        Task<bool> DeleteProduct(Product product);
     }
 }
