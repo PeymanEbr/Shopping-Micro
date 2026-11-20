@@ -1,5 +1,7 @@
 ﻿using Catalog.Core.Entities;
 using Catalog.Core.Repositories;
+using Catalog.Infrastructure.Data;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,21 +10,21 @@ using System.Threading.Tasks;
 
 namespace Catalog.Infrastructure.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository(ICatalogContext context) : IProductRepository
     {
         public Task<bool> DeleteProduct(Product product)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Product> GetProductById(string id)
+        public async Task<Product> GetProductById(string id)
         {
-            throw new NotImplementedException();
+            return await context.Products.Find(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        public Task<IEnumerable<Product>> GetProducts()
+        public async Task<IEnumerable<Product>> GetProducts()
         {
-            throw new NotImplementedException();
+            return await context.Products.Find(x => true).ToListAsync();
         }
 
         public Task<IEnumerable<Product>> GetProductsByBrand(string brand)
